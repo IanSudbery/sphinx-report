@@ -409,7 +409,7 @@ class GGPlot( Renderer, Plotter ):
         ('statement',  directives.unchanged),
         ) + Renderer.options + Plotter.options
 
-    nlevels = 1
+    nlevels = -1
 
     def __init__(self, *args, **kwargs):
         Renderer.__init__(self, *args, **kwargs )
@@ -439,7 +439,7 @@ class GGPlot( Renderer, Plotter ):
         figname = re.sub( '/', '_', path2str(path) )
         r = ResultBlock( '#$ggplot %s$#' % figname,
                          title = path2str(path) )
-        r.ggplot = pp
+        r.rggplot = pp
         r.figname = figname
 
         return ResultBlocks( r )

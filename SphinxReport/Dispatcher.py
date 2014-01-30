@@ -463,7 +463,7 @@ class Dispatcher(Component):
         # BMW    price    10000
         # BMW    speed    100
         # Golf   price    5000
-        # Golf   speed    50    
+        # Golf   speed    50  
         dataframe = DataTree.asDataFrame( self.data )
         # dataframe.write_csv( "test.csv" )
         
@@ -499,7 +499,10 @@ class Dispatcher(Component):
                 
             # used to be: group_level + 1
             # hierarchical index
-            paths = map( tuple, numpy.unique( [ x[:-renderer_nlevels] for x in dataframe.index.unique() ] ))
+            # numpy.unique converts everything to a string
+            # which is not consistent with selecting later
+            paths = map( tuple, DataTree.unique( [ x[:-renderer_nlevels] for x in dataframe.index.unique() ] ))
+
             pathlength = len(paths[0]) - 1
 
             # Note: can only sort hierarchical indices
@@ -512,8 +515,8 @@ class Dispatcher(Component):
             
             for path in paths:
                 if path:
-                    # path needs to be a tuple for .ix
-                    work = dataframe.ix[path]
+                    # path needs to be a tuple for .xs
+                    work = dataframe.xs(path, axis=0 )
                 else:
                     # empty tuple - use full data set
                     work = dataframe
