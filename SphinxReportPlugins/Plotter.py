@@ -2048,7 +2048,7 @@ class GalleryPlot(PlotByRow):
         
         try:
             # return value is a series
-            name = dataseries['name']
+            name = "**%s**" % dataseries['name']
         except KeyError:
             self.warn( "no 'name' key in path %s" % (path2str(path )))
             return
@@ -2095,7 +2095,7 @@ class GalleryPlot(PlotByRow):
         
         plts.append( plt.imshow( data ) )
         ax.set_position([0,0,1,1])
-        return self.endPlot( plts, None, path + (name,) )
+        return self.endPlot( plts, None, (name,) )
 
 class ScatterPlot(Renderer, Plotter):
     """Scatter plot.
